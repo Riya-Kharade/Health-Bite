@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | HealthBite</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i> Health<span>Bite</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="recommendations.html">Recipes</a></li>
+                <li><a href="tracker.html">Tracker</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section style="padding-top: 140px;">
+        <div class="container">
+            <div class="section-title text-center reveal">
+                <h2 style="font-size: 3.5rem;">Join the Community</h2>
+                <p>Have a question or a suggestion? We're always listening to our healthy bite family.</p>
+            </div>
+
+            <div class="grid" style="grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start;">
+                <!-- Info -->
+                <div class="reveal">
+                    <div class="card" style="padding: 40px; background: var(--deep-green); color: var(--white); border: none;">
+                        <h3 style="color: var(--primary-green); margin-bottom: 30px;">Contact Info</h3>
+                        <div style="margin-bottom: 30px; display: flex; gap: 20px;">
+                            <div style="background: rgba(255,255,255,0.1); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <h4 style="color: var(--white); font-size: 1.1rem; margin-bottom: 5px;">Email Us</h4>
+                                <p style="opacity: 0.6;">community@healthbite.app</p>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 30px; display: flex; gap: 20px;">
+                            <div style="background: rgba(255,255,255,0.1); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <h4 style="color: var(--white); font-size: 1.1rem; margin-bottom: 5px;">Call Us</h4>
+                                <p style="opacity: 0.6;">+1 (555) HEALTHY</p>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 30px; display: flex; gap: 20px;">
+                            <div style="background: rgba(255,255,255,0.1); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <h4 style="color: var(--white); font-size: 1.1rem; margin-bottom: 5px;">Location</h4>
+                                <p style="opacity: 0.6;">Organic Way, Green Valley, CA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="form-container reveal">
+                    <form id="contactForm">
+                        <div class="form-group mb-40" style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 700;">Full Name</label>
+                            <input type="text" placeholder="Sarah Johnson" required>
+                        </div>
+                        <div class="form-group mb-40" style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 700;">Email Address</label>
+                            <input type="email" placeholder="sarah@example.com" required>
+                        </div>
+                        <div class="form-group mb-40" style="margin-bottom: 30px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 700;">Your Message</label>
+                            <textarea rows="5" placeholder="Tell us how we can help..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 20px;">Send Message</button>
+                    </form>
+                    <div id="success" style="display: none; text-align: center; padding: 40px; background: var(--light-green); border-radius: var(--radius);">
+                        <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--dark-green); margin-bottom: 15px;"></i>
+                        <h3 style="color: var(--dark-green);">Message Sent!</h3>
+                        <p>Our team will get back to you within 24 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center"><p>&copy; 2024 HealthBite. All rights reserved.</p></div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/global.js"></script>
+    <script>
+        document.getElementById('contactForm').onsubmit = function(e) {
+            e.preventDefault();
+            this.style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+        };
+    </script>
+</body>
+</html>

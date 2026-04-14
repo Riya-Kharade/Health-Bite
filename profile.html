@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile | HealthBite</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i> Health<span>Bite</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="recommendations.html">Recipes</a></li>
+                <li><a href="tracker.html">Tracker</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="profile.html" class="active">Profile</a></li>
+                <li><a href="#" onclick="logout()" style="color: var(--brown);">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <script src="js/auth.js"></script>
+
+    <section style="padding-top: 140px;">
+        <div class="container">
+            <div class="section-title text-center reveal">
+                <h2 style="font-size: 3.5rem;">Configure Your Journey</h2>
+                <p>Personalization is the secret to consistency. Define your health parameters.</p>
+            </div>
+
+            <div class="form-container reveal" style="max-width: 800px; margin: 0 auto;">
+                <!-- Profile Image Section -->
+                <div class="profile-img-container">
+                    <div class="profile-preview-wrapper">
+                        <img id="profilePreview" src="" alt="" style="display: none;">
+                        <i id="defaultUserIcon" class="fas fa-user"></i>
+                    </div>
+                    <div class="upload-btn-wrapper">
+                        <button class="btn btn-outline" style="border-radius: 8px; padding: 10px 20px; font-size: 0.85rem; border-color: var(--dark-green); color: var(--dark-green);">
+                            <i class="fas fa-camera"></i> Change Photo
+                        </button>
+                        <input type="file" id="imageUpload" accept="image/*">
+                    </div>
+                </div>
+
+                <form id="profileForm">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label for="userName" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);">Full Name</label>
+                            <input type="text" id="userName" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="userAge" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);">Age</label>
+                            <input type="number" id="userAge" placeholder="25" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="userWeight" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);">Weight (KG)</label>
+                            <input type="number" id="userWeight" placeholder="70" required>
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label for="userGoal" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);">What's your primary goal?</label>
+                            <select id="userGoal" required>
+                                <option value="weight-loss">I want to lose weight</option>
+                                <option value="muscle-gain">I want to gain muscle</option>
+                                <option value="maintain">I want to stay fit</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label for="userPreference" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);">Dietary Preference</label>
+                            <select id="userPreference" required>
+                                <option value="veg">Vegetarian (Earth focused)</option>
+                                <option value="non-veg">Non-Vegetarian (Balanced)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-20" style="width: 100%; font-size: 1.1rem; padding: 20px;">Save My Profile</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center"><p>&copy; 2024 HealthBite. All rights reserved.</p></div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/global.js"></script>
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('userName').value,
+                age: document.getElementById('userAge').value,
+                weight: document.getElementById('userWeight').value,
+                goal: document.getElementById('userGoal').value,
+                preference: document.getElementById('userPreference').value
+            };
+            localStorage.setItem('hb_user_data', JSON.stringify(data));
+            alert('Profile updated! Redirecting to dashboard...');
+            window.location.href = 'dashboard.html';
+        });
+
+        window.onload = () => {
+            const data = JSON.parse(localStorage.getItem('hb_user_data'));
+            if (data) {
+                document.getElementById('userName').value = data.name;
+                document.getElementById('userAge').value = data.age;
+                document.getElementById('userWeight').value = data.weight;
+                document.getElementById('userGoal').value = data.goal;
+                document.getElementById('userPreference').value = data.preference;
+            }
+
+            // Load saved image
+            const savedImg = localStorage.getItem('profileImage');
+            const preview = document.getElementById('profilePreview');
+            const icon = document.getElementById('defaultUserIcon');
+            if (savedImg) {
+                preview.src = savedImg;
+                preview.style.display = 'block';
+                icon.style.display = 'none';
+            }
+
+            // Handle new upload
+            document.getElementById('imageUpload').addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const base64 = e.target.result;
+                        localStorage.setItem('profileImage', base64);
+                        preview.src = base64;
+                        preview.style.display = 'block';
+                        icon.style.display = 'none';
+                        
+                        // Update navbar instantly if present
+                        const navAvatar = document.querySelector('.nav-avatar');
+                        if (navAvatar) navAvatar.src = base64;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Dashboard | HealthBite</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .chart-section {
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+        }
+        .pie-chart {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary-green) 0% 75%, var(--orange-accent) 75% 100%);
+            margin: 30px auto;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.05);
+        }
+        .pie-chart::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            background: var(--white);
+            border-radius: 50%;
+        }
+        .pie-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--deep-green);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i> Health<span>Bite</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="recommendations.html">Recipes</a></li>
+                <li><a href="tracker.html">Tracker</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="#" onclick="logout()" style="color: var(--brown);">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <script src="js/auth.js"></script>
+    <script src="js/translations.js"></script>
+
+    <section style="background-color: var(--beige-bg); padding-top: 140px;">
+        <div class="container">
+            <div class="section-title reveal" style="text-align: left; margin-bottom: 50px;">
+                <h2 id="userNameDisplay" style="font-size: 3.5rem;">Hello, Healthy Human!</h2>
+                <p>Your daily performance metrics and personalized insights are ready.</p>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="dashboard-grid">
+                <div class="stat-card reveal">
+                    <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+                    <div>
+                        <p style="color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase;">Calorie Target</p>
+                        <h3 id="targetCalories" style="font-size: 2rem;">2,400 kcal</h3>
+                    </div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon" style="background-color: var(--warm-yellow); color: var(--brown);"><i class="fas fa-mountain"></i></div>
+                    <div>
+                        <p style="color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase;">Current Goal</p>
+                        <h3 id="userGoalDisplay" style="font-size: 1.8rem;">Weight Loss</h3>
+                    </div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon" style="background-color: var(--beige-bg); color: var(--muted-blue-grey);"><i class="fas fa-weight-hanging"></i></div>
+                    <div>
+                        <p style="color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase;">Current Weight</p>
+                        <h3 id="userWeightDisplay" style="font-size: 2rem;">72 kg</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insights Section -->
+            <div class="grid mt-20" style="margin-top: 40px;">
+                <div class="chart-section reveal" style="text-align: center;">
+                    <h3>Healthy Habit Ratio</h3>
+                    <p>Comparison of nutrient-dense vs other choices</p>
+                    <div class="pie-chart">
+                        <div class="pie-text">75%</div>
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 30px;">
+                        <div><i class="fas fa-circle" style="color: var(--primary-green);"></i> Healthy</div>
+                        <div><i class="fas fa-circle" style="color: var(--orange-accent);"></i> Others</div>
+                    </div>
+                </div>
+
+                <div class="tip-card reveal" style="display: flex; flex-direction: column; justify-content: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 20px;"><i class="fas fa-quote-left"></i></div>
+                    <h3 style="margin-bottom: 15px;">Smart Tip of the Day</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">Eating protein-rich breakfast reduces cravings throughout the day by up to 60%. Try adding an egg or Greek yogurt to your morning routine!</p>
+                    <a href="tips.html" class="btn btn-primary mt-20" style="align-self: flex-start; background-color: var(--brown);">Discover More</a>
+                </div>
+            </div>
+
+            <!-- Meal Suggestion -->
+            <div class="reveal mt-20" style="margin-top: 60px;">
+                <h2 style="margin-bottom: 30px;">Recommended Next Bite</h2>
+                <div class="card" style="flex-direction: row; align-items: stretch; max-height: 300px; display: flex;">
+                    <div style="flex: 1; overflow: hidden;">
+                        <img id="mealImg" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=600" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="flex: 1.5; padding: 40px; display: flex; flex-direction: column; justify-content: center;">
+                        <span id="mealTag" style="color: var(--primary-green); font-weight: 800; font-size: 0.85rem; letter-spacing: 2px;">LUNCH</span>
+                        <h3 id="mealName" style="font-size: 2.2rem; margin: 10px 0;">Harvest Buddha Bowl</h3>
+                        <p id="mealDesc" style="margin-bottom: 25px;">A nutrient-packed powerhouse with roasted chickpeas, quinoa, and fresh greens.</p>
+                        <a href="recommendations.html" class="btn btn-primary" style="align-self: flex-start;">Full Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2024 HealthBite. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/global.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const userName = localStorage.getItem('userName');
+            const userData = JSON.parse(localStorage.getItem('hb_user_data'));
+            
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (userName) {
+                const welcomePrefix = (localStorage.getItem('language') === 'hi') ? 'नमस्ते' : (localStorage.getItem('language') === 'mr') ? 'नमस्कार' : 'Hi';
+                document.getElementById('userNameDisplay').textContent = `${welcomePrefix}, ${userName.split(' ')[0]}!`;
+            }
+
+            if (!userData) { 
+                // userData is optional params, if missing just show defaults
+                return; 
+            }
+            document.getElementById('userWeightDisplay').textContent = `${userData.weight} kg`;
+
+            let baseCal = 2000;
+            if (userData.goal === 'muscle-gain') baseCal = 2800;
+            if (userData.goal === 'weight-loss') baseCal = 1800;
+            document.getElementById('targetCalories').textContent = `${baseCal} kcal`;
+
+            const mealLogic = {
+                'weight-loss': { 
+                    name: 'Mediterranean Salad', 
+                    desc: 'Crisp greens, feta, and extra virgin olive oil for a low-cal nutrition bomb.', 
+                    tag: 'DINNER',
+                    img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600'
+                },
+                'muscle-gain': { 
+                    name: 'Grilled Steak & Asparagus', 
+                    desc: 'High protein and micronutrients to fuel your muscle recovery.', 
+                    tag: 'DINNER',
+                    img: 'https://images.unsplash.com/photo-1546241072-48010ad28c2c?auto=format&fit=crop&q=80&w=600'
+                },
+                'maintain': { 
+                    name: 'Acai Power Bowl', 
+                    desc: 'Antioxidant rich and perfectly balanced for energy maintenance.', 
+                    tag: 'BREAKFAST',
+                    img: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&q=80&w=600'
+                }
+            };
+
+            const rec = mealLogic[userData.goal] || mealLogic['maintain'];
+            document.getElementById('mealName').textContent = rec.name;
+            document.getElementById('mealDesc').textContent = rec.desc;
+            document.getElementById('mealTag').textContent = rec.tag;
+            document.getElementById('mealImg').src = rec.img;
+        });
+    </script>
+</body>
+</html>

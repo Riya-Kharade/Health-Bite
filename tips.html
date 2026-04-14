@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Health Tips | HealthBite</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i> Health<span>Bite</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="recommendations.html">Recipes</a></li>
+                <li><a href="tracker.html">Tracker</a></li>
+                <li><a href="tips.html" class="active">Tips</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="#" onclick="logout()" style="color: var(--brown);">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <script src="js/auth.js"></script>
+
+    <section style="padding-top: 140px;">
+        <div class="container">
+            <div class="section-title text-center reveal">
+                <h2 style="font-size: 3.5rem;">Daily Wisdom</h2>
+                <p>Nourish your mind with these science-backed nutritional insights.</p>
+            </div>
+
+            <div class="grid">
+                <!-- Tip 1 -->
+                <div class="card reveal">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800" alt="Hydration">
+                        <div class="card-icon" style="background: var(--muted-blue-grey); color: white;"><i class="fas fa-tint"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <h3>Hydration First</h3>
+                        <p>Thirst is often masked as hunger. Drink a tall glass of water 20 minutes before every meal to improve digestion and control portion sizes.</p>
+                        <div style="background: var(--beige-bg); padding: 15px; border-radius: 12px; font-size: 0.9rem; border-left: 4px solid var(--primary-green);">
+                            <i class="fas fa-star" style="color: var(--primary-green);"></i> <strong>Pro Tip:</strong> Add a slice of lemon for an electrolyte boost.
+                        </div>
+                    </div>
+                </div>
+                <!-- Tip 2 -->
+                <div class="card reveal">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800" alt="Fiber">
+                        <div class="card-icon" style="background: var(--dark-green); color: white;"><i class="fas fa-seedling"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <h3>Fiber is Your Friend</h3>
+                        <p>Incorporate whole grains and legumes to feed your gut microbiome. High-fiber foods keep you feeling satiated for much longer periods.</p>
+                        <div style="background: var(--warm-yellow); padding: 15px; border-radius: 12px; font-size: 0.9rem; border-left: 4px solid var(--orange-accent);">
+                            <i class="fas fa-check-circle" style="color: var(--orange-accent);"></i> <strong>Fact:</strong> Adults need 25-30g of fiber daily.
+                        </div>
+                    </div>
+                </div>
+                <!-- Tip 3 -->
+                <div class="card reveal">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=800" alt="Mindfulness">
+                        <div class="card-icon" style="background: var(--brown); color: white;"><i class="fas fa-spa"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <h3>Mindful Chewing</h3>
+                        <p>Your brain takes about 20 minutes to signal fullness. Eat slowly and enjoy every bite. This prevents overeating and aids nutrient absorption.</p>
+                        <div style="background: var(--light-green); padding: 15px; border-radius: 12px; font-size: 0.9rem; border-left: 4px solid var(--dark-green);">
+                            <i class="fas fa-clock" style="color: var(--dark-green);"></i> <strong>Goal:</strong> Chew each bite 20-30 times.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center"><p>&copy; 2024 HealthBite. All rights reserved.</p></div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/global.js"></script>
+</body>
+</html>

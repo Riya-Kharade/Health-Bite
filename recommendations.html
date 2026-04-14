@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Recipes | HealthBite</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .filter-chip {
+            padding: 12px 28px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: var(--transition);
+            background: var(--white);
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            white-space: nowrap;
+        }
+        .filter-chip.active {
+            background: var(--primary-green);
+            color: var(--white);
+            box-shadow: 0 5px 15px rgba(71, 189, 70, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i> Health<span>Bite</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="recommendations.html" class="active">Recipes</a></li>
+                <li><a href="tracker.html">Tracker</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="#" onclick="logout()" style="color: var(--brown);">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <script src="js/auth.js"></script>
+
+    <section style="padding-top: 140px;">
+        <div class="container">
+            <div class="section-title text-center reveal">
+                <h2 style="font-size: 3.5rem;">Personalized Menu</h2>
+                <p>Based on your goal: <strong id="goalTag" style="color: var(--dark-green); text-transform: uppercase;">Loading...</strong></p>
+            </div>
+
+            <!-- Chips -->
+            <div class="reveal" style="display: flex; gap: 15px; margin-bottom: 50px; justify-content: center; overflow-x: auto; padding: 10px;">
+                <div class="filter-chip active" data-time="breakfast">Breakfast</div>
+                <div class="filter-chip" data-time="lunch">Lunch</div>
+                <div class="filter-chip" data-time="dinner">Dinner</div>
+                <div class="filter-chip" data-time="snacks">Snacks</div>
+            </div>
+
+            <div id="recipesGrid" class="grid">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructions Modal -->
+    <div id="instructionsModal" class="modal-backdrop">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div id="modalBody">
+                <!-- Recipe details injected here -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container text-center"><p>&copy; 2024 HealthBite. All rights reserved.</p></div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/global.js"></script>
+    <script>
+        const recipeDb = {
+            breakfast: [
+                { 
+                    id: 'b1',
+                    name: "Avocado Power Toast", 
+                    cal: 320, 
+                    img: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=600", 
+                    icon: "egg",
+                    steps: [
+                        "Toast two slices of whole-grain bread until golden brown.",
+                        "Mash one ripe avocado with a pinch of salt and lemon juice.",
+                        "Spread the mixture evenly and top with a poached egg."
+                    ]
+                },
+                { 
+                    id: 'b2',
+                    name: "Berry Oatmeal Bowl", 
+                    cal: 250, 
+                    img: "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&q=80&w=600", 
+                    icon: "seedling",
+                    steps: [
+                        "Boil 1 cup of oats with 2 cups of almond milk.",
+                        "Stir in a spoonful of honey or maple syrup.",
+                        "Top with fresh blueberries, raspberries, and a sprinkle of chia seeds."
+                    ]
+                }
+            ],
+            lunch: [
+                { 
+                    id: 'l1',
+                    name: "Green Detox Bowl", 
+                    cal: 400, 
+                    img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600", 
+                    icon: "leaf",
+                    steps: [
+                        "Chop fresh kale, spinach, and cucumber into a large bowl.",
+                        "Add boiled chickpeas and cherry tomatoes.",
+                        "Drizzle with lemon-tahini dressing and toss well."
+                    ]
+                },
+                { 
+                    id: 'l2',
+                    name: "Quinoa Salmon Mix", 
+                    cal: 600, 
+                    img: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&q=80&w=600", 
+                    icon: "fish",
+                    steps: [
+                        "Pan-sear a fresh salmon fillet with herbs.",
+                        "Fluff cooked quinoa and mix with diced bell peppers.",
+                        "Serve the salmon on top of the quinoa bed with a side of steamed broccoli."
+                    ]
+                }
+            ],
+            dinner: [
+                { 
+                    id: 'd1',
+                    name: "Steak & Veggie Stir-fry", 
+                    cal: 750, 
+                    img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&q=80&w=600", 
+                    icon: "fire",
+                    steps: [
+                        "Slice lean steak into thin strips and sear in a wok.",
+                        "Toss in sliced carrots, broccoli, and snap peas.",
+                        "Add low-sodium soy sauce and ginger, then cook for 3-5 more minutes."
+                    ]
+                },
+                { 
+                    id: 'd2',
+                    name: "Low-Carb Turkey Tacos", 
+                    cal: 350, 
+                    img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&q=80&w=600", 
+                    icon: "pepper-hot",
+                    steps: [
+                        "Brown ground turkey with taco seasoning.",
+                        "Prepare lettuce wraps as taco shells.",
+                        "Fill wraps with turkey, salsa, and a small amount of Greek yogurt instead of sour cream."
+                    ]
+                }
+            ],
+            snacks: [
+                { 
+                    id: 's1',
+                    name: "Greek Yogurt Parfait", 
+                    cal: 180, 
+                    img: "https://images.unsplash.com/photo-1488477181946-6428a0258377?auto=format&fit=crop&q=80&w=600", 
+                    icon: "ice-cream",
+                    steps: [
+                        "Layer plain Greek yogurt and low-sugar granola in a glass.",
+                        "Add a layer of sliced strawberries.",
+                        "Finnish with a drizzle of honey."
+                    ]
+                },
+                { 
+                    id: 's2',
+                    name: "Apple & Almond Butter", 
+                    cal: 210, 
+                    img: "https://images.unsplash.com/photo-1610398041406-3c00edf3d65c?auto=format&fit=crop&q=80&w=600", 
+                    icon: "apple-alt",
+                    steps: [
+                        "Slice one medium apple into thin wedges.",
+                        "Serve with 2 tablespoons of natural almond butter.",
+                        "Sprinkle cinnamon on top for extra flavor."
+                    ]
+                }
+            ]
+        };
+
+        let activeTab = 'breakfast';
+        const favorites = JSON.parse(localStorage.getItem('hb_favorites')) || [];
+        const userData = JSON.parse(localStorage.getItem('hb_user_data')) || { goal: 'maintain' };
+        if (document.getElementById('goalTag')) {
+            document.getElementById('goalTag').textContent = userData.goal.replace('-', ' ');
+        }
+
+        const render = () => {
+            const grid = document.getElementById('recipesGrid');
+            grid.innerHTML = '';
+            
+            const list = recipeDb[activeTab];
+
+            list.forEach(r => {
+                const isFav = favorites.includes(r.id);
+                grid.innerHTML += `
+                    <div class="card reveal active">
+                        <div class="card-img-wrapper">
+                            <img src="${r.img}" alt="${r.name}">
+                            <div class="card-icon"><i class="fas fa-${r.icon}"></i></div>
+                        </div>
+                        <div class="card-body">
+                            <span style="color: var(--orange-accent); font-weight: 800; font-size: 0.8rem;">${r.cal} KCAL</span>
+                            <h3 style="margin-top: 5px;">${r.name}</h3>
+                            <button class="btn btn-primary mt-20" onclick="showInstructions('${activeTab}', '${r.id}')" style="width: 100%; border-radius: 12px; padding: 15px;">Get Instructions</button>
+                            
+                            <div class="card-actions">
+                                <button class="btn-icon ${isFav ? 'active' : ''}" onclick="toggleFavorite('${r.id}', this)">
+                                    <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
+                                </button>
+                                <button class="btn-icon" onclick="addToTracker('${r.name}', ${r.cal})" title="Add to Tracker">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <div style="flex-grow: 1;"></div>
+                                <span style="font-size: 0.8rem; color: var(--text-muted); align-self: center;">${activeTab.toUpperCase()}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        };
+
+        window.showInstructions = (tab, id) => {
+            const recipe = recipeDb[tab].find(r => r.id === id);
+            const modal = document.getElementById('instructionsModal');
+            const body = document.getElementById('modalBody');
+
+            body.innerHTML = `
+                <h2 style="font-size: 2.2rem; margin-bottom: 10px;">${recipe.name}</h2>
+                <span style="color: var(--primary-green); font-weight: 800; letter-spacing: 1px;">${recipe.cal} CALORIES</span>
+                
+                <ul class="instruction-list">
+                    ${recipe.steps.map(step => `<li>${step}</li>`).join('')}
+                </ul>
+                
+                <button class="btn btn-primary mt-20" style="width: 100%;" onclick="closeModal()">Got it!</button>
+            `;
+
+            modal.classList.add('active');
+        };
+
+        window.closeModal = () => {
+            document.getElementById('instructionsModal').classList.remove('active');
+        };
+
+        window.toggleFavorite = (id, btn) => {
+            const idx = favorites.indexOf(id);
+            if (idx === -1) {
+                favorites.push(id);
+                btn.classList.add('active');
+                btn.querySelector('i').className = 'fas fa-heart';
+            } else {
+                favorites.splice(idx, 1);
+                btn.classList.remove('active');
+                btn.querySelector('i').className = 'far fa-heart';
+            }
+            localStorage.setItem('hb_favorites', JSON.stringify(favorites));
+        };
+
+        window.addToTracker = (name, cal) => {
+            let dailyLog = JSON.parse(localStorage.getItem('hb_daily_log')) || [];
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            dailyLog.push({ name, cal, time });
+            localStorage.setItem('hb_daily_log', JSON.stringify(dailyLog));
+            alert(`${name} added to your Daily Tracker!`);
+        };
+
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.onclick = function() {
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                activeTab = this.dataset.time;
+                render();
+            }
+        });
+
+        // Close modal on backdrop click
+        window.onclick = (e) => {
+            const modal = document.getElementById('instructionsModal');
+            if (e.target === modal) closeModal();
+        };
+
+        render();
+    </script>
+</body>
+</html>

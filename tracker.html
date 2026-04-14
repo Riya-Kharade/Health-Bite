@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Tracker | HealthBite</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .tracker-container {
+            display: grid;
+            grid-template-columns: 1fr 1.8fr;
+            gap: 40px;
+        }
+        @media (max-width: 991px) {
+            .tracker-container { grid-template-columns: 1fr; }
+        }
+        .log-card {
+            background: var(--white);
+            padding: 24px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .log-card:hover { transform: translateX(10px); box-shadow: var(--shadow-hover); }
+        .log-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--light-green);
+            color: var(--dark-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i> Health<span>Bite</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="recommendations.html">Recipes</a></li>
+                <li><a href="tracker.html" class="active">Tracker</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="#" onclick="logout()" style="color: var(--brown);">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <script src="js/auth.js"></script>
+
+    <section style="padding-top: 140px;">
+        <div class="container">
+            <div class="section-title text-center reveal">
+                <h2 style="font-size: 3.5rem;">Daily Intake Tracker</h2>
+                <p>Knowledge is power. Log your intake and watch your progress unfold.</p>
+            </div>
+
+            <div class="tracker-container">
+                <!-- Add Form -->
+                <div class="reveal">
+                    <div class="form-container" style="position: sticky; top: 120px;">
+                        <h3 style="margin-bottom: 25px;">Log New Meal</h3>
+                        <form id="foodForm">
+                            <div class="form-group mb-40" style="margin-bottom: 20px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 700;">Food Name</label>
+                                <input type="text" id="foodName" placeholder="e.g. Scrambled Eggs" required>
+                            </div>
+                            <div class="form-group mb-40" style="margin-bottom: 30px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 700;">Estimate Calories</label>
+                                <input type="number" id="calories" placeholder="e.g. 250" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Add to My Log</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Log List -->
+                <div class="reveal">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; background: var(--deep-green); padding: 30px; border-radius: var(--radius); color: var(--white);">
+                        <div>
+                            <p style="opacity: 0.7; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;" data-i18n="total_cals">Today's Total</p>
+                            <h2 style="color: var(--primary-green); font-size: 3rem; margin: 0;"><span id="totalCals">0</span> <small style="font-size: 1rem; opacity: 0.5;">KCAL</small></h2>
+                        </div>
+                        <i class="fas fa-chart-bar" style="font-size: 3rem; opacity: 0.2;"></i>
+                    </div>
+
+                    <div id="logList">
+                        <!-- Entries -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Analytics Section -->
+            <div class="analytics-section reveal">
+                <div class="section-title">
+                    <h2 style="font-size: 2.5rem;">Your Progress</h2>
+                    <p id="motivationalMsg">Consistency is the bridge between goals and accomplishment.</p>
+                </div>
+
+                <div class="analytics-grid">
+                    <!-- Streak Card -->
+                    <div class="streak-card">
+                        <i class="fas fa-fire" style="font-size: 2rem;"></i>
+                        <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-top: 10px;">Current Streak</p>
+                        <div class="streak-count" id="currentStreak">0 Days</div>
+                        <p style="opacity: 0.7;">Best Streak: <span id="bestStreak">0</span> Days</p>
+                        
+                        <div class="summary-stats">
+                            <div>
+                                <h4 id="weeklyAvg">0</h4>
+                                <p style="font-size: 0.7rem; opacity: 0.6;">Weekly Avg</p>
+                            </div>
+                            <div>
+                                <h4 id="activeDays">0</h4>
+                                <p style="font-size: 0.7rem; opacity: 0.6;">Active Days</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heatmap Card -->
+                    <div class="heatmap-card">
+                        <h3 style="margin-bottom: 5px;">Activity Heatmap</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Daily calorie logging frequency</p>
+                        <div class="heatmap-container" id="heatmapGrid">
+                            <!-- Days generated by JS -->
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 20px; font-size: 0.75rem;">
+                            <span>Less</span>
+                            <div class="heatmap-day"></div>
+                            <div class="heatmap-day low"></div>
+                            <div class="heatmap-day medium"></div>
+                            <div class="heatmap-day high"></div>
+                            <span>More</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="margin-top: 60px;">
+        <div class="container text-center"><p>&copy; 2024 HealthBite. All rights reserved.</p></div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/global.js"></script>
+    <script>
+        let dailyLog = JSON.parse(localStorage.getItem('hb_daily_log')) || [];
+        let heatmapData = JSON.parse(localStorage.getItem('hb_heatmap_data')) || {};
+
+        const render = () => {
+            const list = document.getElementById('logList');
+            const totalDisplay = document.getElementById('totalCals');
+            list.innerHTML = '';
+            let total = 0;
+
+            if (dailyLog.length === 0) {
+                list.innerHTML = '<div class="card text-center" style="padding: 60px; border: 2px dashed #ccc; background: transparent; box-shadow: none;"><h3>Your plate is empty!</h3><p>Log your first meal to start tracking.</p></div>';
+            }
+
+            dailyLog.forEach((item, index) => {
+                total += Number(item.cal);
+                list.innerHTML += `
+                    <div class="log-card">
+                        <div class="log-icon"><i class="fas fa-utensils"></i></div>
+                        <div style="flex-grow: 1;">
+                            <h4 style="font-size: 1.25rem;">${item.name}</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">${item.time}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="font-weight: 800; color: var(--dark-green); font-size: 1.2rem;">${item.cal} <small>KCAL</small></p>
+                            <button onclick="deleteItem(${index})" style="background: none; border: none; color: var(--brown); cursor: pointer; font-size: 0.8rem;"><i class="fas fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                `;
+            });
+            totalDisplay.textContent = total;
+            
+            // Sync with Heatmap Data
+            const today = new Date().toISOString().split('T')[0];
+            heatmapData[today] = total;
+            localStorage.setItem('hb_heatmap_data', JSON.stringify(heatmapData));
+            
+            renderAnalytics();
+        };
+
+        const renderAnalytics = () => {
+            const grid = document.getElementById('heatmapGrid');
+            grid.innerHTML = '';
+            
+            // 1. Render Heatmap (Last 56 days)
+            const daysToRender = 56;
+            const today = new Date();
+            let activeDaysCount = 0;
+            let totalWeeklyCals = 0;
+
+            for (let i = daysToRender - 1; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(today.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                const calories = heatmapData[dateStr] || 0;
+                
+                const dayEl = document.createElement('div');
+                dayEl.className = 'heatmap-day';
+                if (calories > 0) {
+                    activeDaysCount++;
+                    if (calories < 200) dayEl.classList.add('low');
+                    else if (calories < 500) dayEl.classList.add('medium');
+                    else dayEl.classList.add('high');
+                }
+                
+                dayEl.setAttribute('data-tooltip', `${calories} kcal on ${date.toLocaleDateString('en-US', {month:'short', day:'numeric'})}`);
+                grid.appendChild(dayEl);
+
+                // Weekly Sum (last 7 days)
+                if (i < 7) totalWeeklyCals += calories;
+            }
+
+            // 2. Calculate Streak
+            let currentStreak = 0;
+            let tempDate = new Date();
+            while (true) {
+                const ds = tempDate.toISOString().split('T')[0];
+                if (heatmapData[ds] > 0) {
+                    currentStreak++;
+                    tempDate.setDate(tempDate.getDate() - 1);
+                } else {
+                    break;
+                }
+            }
+
+            let bestStreak = localStorage.getItem('hb_best_streak') || 0;
+            if (currentStreak > bestStreak) {
+                bestStreak = currentStreak;
+                localStorage.setItem('hb_best_streak', bestStreak);
+            }
+
+            // 3. Update DOM
+            document.getElementById('currentStreak').textContent = `${currentStreak} Days`;
+            document.getElementById('bestStreak').textContent = bestStreak;
+            document.getElementById('weeklyAvg').textContent = Math.round(totalWeeklyCals / 7);
+            document.getElementById('activeDays').textContent = activeDaysCount;
+
+            const msg = document.getElementById('motivationalMsg');
+            if (currentStreak >= 5) msg.textContent = "You're on fire! 🔥 Keep that momentum going!";
+            else if (currentStreak > 0) msg.textContent = "Great start! Every meal logged is a step toward your goal.";
+        };
+
+        document.getElementById('foodForm').onsubmit = (e) => {
+            e.preventDefault();
+            const name = document.getElementById('foodName').value;
+            const cal = document.getElementById('calories').value;
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            dailyLog.push({ name, cal, time });
+            localStorage.setItem('hb_daily_log', JSON.stringify(dailyLog));
+            e.target.reset();
+            render();
+        };
+
+        window.deleteItem = (i) => {
+            dailyLog.splice(i, 1);
+            localStorage.setItem('hb_daily_log', JSON.stringify(dailyLog));
+            render();
+        };
+
+        render();
+    </script>
+</body>
+</html>
