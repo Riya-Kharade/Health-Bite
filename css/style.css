@@ -981,3 +981,685 @@ footer {
 .footer-links a:hover {
     color: var(--primary-green);
 }
+
+/* Mobile Devices (max-width: 768px) */
+@media (max-width: 768px) {
+    /* ===== GLOBAL MOBILE FIXES ===== */
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        padding: 0;
+        margin: 0;
+        overflow-x: hidden;
+    }
+    
+    section {
+        padding: 40px 0;
+    }
+    
+    .container {
+        padding: 0 16px;
+        max-width: 100%;
+    }
+    
+    h1, h2, h3 {
+        font-size: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    /* ===== NAVBAR FIXES ===== */
+    nav {
+        padding: 12px 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+    
+    .nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 16px;
+    }
+    
+    .logo {
+        font-size: 1.3rem;
+        gap: 6px;
+    }
+    
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: var(--beige-bg);
+        flex-direction: column;
+        padding: 20px;
+        list-style: none;
+        gap: 0;
+        overflow-y: auto;
+        z-index: 999;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links li {
+        border-bottom: 1px solid rgba(70, 135, 49, 0.1);
+        padding: 15px 0;
+    }
+    
+    .nav-links a {
+        display: block;
+        padding: 10px 0;
+        font-size: 1rem;
+    }
+    
+    .mobile-menu-btn {
+        display: flex !important;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 6px;
+        background: none;
+        border: none;
+        padding: 8px;
+    }
+    
+    .mobile-menu-btn span {
+        width: 25px;
+        height: 3px;
+        background: var(--dark-green);
+        border-radius: 2px;
+        transition: var(--transition);
+    }
+    
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+    
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+    
+    /* ===== HERO SECTION FIXES ===== */
+    .hero {
+        min-height: 500px;
+        height: auto;
+        padding: 80px 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+        margin-bottom: 16px;
+        line-height: 1.2;
+    }
+    
+    .hero p {
+        font-size: 0.95rem;
+        margin-bottom: 24px;
+        padding: 0 10px;
+        max-width: 100%;
+    }
+    
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        padding: 0 10px;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        padding: 14px 24px;
+        font-size: 0.95rem;
+    }
+    
+    /* ===== BUTTON FIXES ===== */
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 14px 20px;
+        text-align: center;
+        font-size: 0.95rem;
+        border-radius: 12px;
+        margin-bottom: 10px;
+    }
+    
+    .btn-primary, .btn-outline {
+        width: 100%;
+    }
+    
+    button {
+        width: 100%;
+        padding: 12px;
+        font-size: 0.95rem;
+        border-radius: 12px;
+    }
+    
+    /* ===== CARD FIXES ===== */
+    .grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        grid-template-columns: unset;
+    }
+    
+    .card {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .card-img-wrapper {
+        width: 100%;
+        height: 200px;
+    }
+    
+    .card-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    .card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+    
+    .card p {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+    }
+    
+    .card-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+        top: 15px;
+        right: 15px;
+    }
+    
+    .card-actions {
+        flex-direction: row;
+        gap: 10px;
+    }
+    
+    .btn-icon {
+        flex: 1;
+        width: auto;
+    }
+    
+    /* ===== RECIPE CARD FIXES ===== */
+    .recipe-card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .recipe-card img {
+        width: 100%;
+        height: auto;
+        max-height: 250px;
+        object-fit: cover;
+    }
+    
+    .recipe-content {
+        padding: 15px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .recipe-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+    
+    /* ===== DASHBOARD FIXES ===== */
+    .dashboard-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        gap: 15px;
+    }
+    
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+    }
+    
+    .tip-card {
+        padding: 20px;
+        border-left: 6px solid var(--orange-accent);
+    }
+    
+    /* ===== TRACKER FIXES ===== */
+    .analytics-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .analytics-section {
+        margin-top: 40px;
+    }
+    
+    .heatmap-card {
+        padding: 20px;
+        overflow-x: auto;
+    }
+    
+    .heatmap-container {
+        gap: 3px;
+    }
+    
+    .streak-card {
+        padding: 30px 20px;
+    }
+    
+    .streak-count {
+        font-size: 3rem;
+    }
+    
+    .summary-stats {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 15px;
+        padding-top: 15px;
+    }
+    
+    /* ===== FORM FIXES ===== */
+    .form-container {
+        padding: 25px;
+        border-radius: 12px;
+    }
+    
+    input, select, textarea {
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+    
+    /* ===== MODAL FIXES ===== */
+    .modal-content {
+        width: 95%;
+        padding: 30px 20px;
+        border-radius: 16px;
+        max-height: 95vh;
+    }
+    
+    .modal-close {
+        top: 15px;
+        right: 15px;
+        font-size: 1.5rem;
+    }
+    
+    /* ===== SETTINGS DROPDOWN - MOBILE ===== */
+    .settings-dropdown {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-height: 80vh;
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -5px 40px rgba(0, 0, 0, 0.2);
+        padding: 0;
+        overflow-y: auto;
+        z-index: 2000;
+    }
+    
+    .dropdown-profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+        padding: 20px;
+    }
+    
+    .profile-info-wrapper {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+    
+    .dropdown-user-avatar {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+    }
+    
+    .edit-profile-btn {
+        align-self: center;
+    }
+    
+    .language-selector {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .mode-toggle {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .logout-btn {
+        border-radius: 12px;
+        margin: 10px;
+        width: auto;
+    }
+    
+    /* ===== PROFILE IMAGE UPLOAD ===== */
+    .profile-img-container {
+        margin-bottom: 30px;
+    }
+    
+    .profile-preview-wrapper {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .profile-preview-wrapper i {
+        font-size: 2.5rem;
+    }
+    
+    /* ===== NAV AVATAR ===== */
+    .nav-avatar {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .nav-user-icon {
+        font-size: 1.2rem;
+    }
+    
+    /* ===== INSTRUCTION LIST ===== */
+    .instruction-list li {
+        padding-left: 30px;
+        margin-bottom: 15px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Footer Improvements */
+footer {
+    background: var(--deep-green);
+    color: var(--beige-bg);
+    padding: 80px 0 40px;
+}
+
+.footer-logo {
+    color: var(--primary-green) !important;
+}
+
+.footer-links a {
+    color: rgba(241, 241, 186, 0.6);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--primary-green);
+}
+/* Extra Small Phones (max-width: 480px) */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .container {
+        padding: 0 12px;
+    }
+    
+    section {
+        padding: 30px 0;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+    
+    h2, h3 {
+        font-size: 1.2rem;
+    }
+    
+    /* Navbar Extra Small */
+    nav {
+        padding: 10px 0;
+    }
+    
+    .logo {
+        font-size: 1.1rem;
+    }
+    
+    .nav-links {
+        top: 55px;
+        height: calc(100vh - 55px);
+        padding: 15px;
+    }
+    
+    .nav-links a {
+        font-size: 0.9rem;
+    }
+    
+    .mobile-menu-btn span {
+        width: 22px;
+        height: 2.5px;
+    }
+    
+    /* Hero Extra Small */
+    .hero {
+        min-height: 400px;
+        padding: 60px 0 30px;
+    }
+    
+    .hero h1 {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+    
+    .hero p {
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+        padding: 0 5px;
+    }
+    
+    .hero-buttons {
+        gap: 10px;
+        padding: 0 5px;
+    }
+    
+    .hero-buttons .btn {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+    }
+    
+    /* Buttons Extra Small */
+    .btn {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+    }
+    
+    button {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+    
+    /* Cards Extra Small */
+    .card-body {
+        padding: 15px;
+    }
+    
+    .card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    
+    .card p {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+    
+    .card-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .card-img-wrapper {
+        height: 150px;
+    }
+    
+    /* Dashboard Extra Small */
+    .stat-card {
+        flex-direction: column;
+        padding: 15px;
+        gap: 10px;
+    }
+    
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .tip-card {
+        padding: 15px;
+        border-left: 5px solid var(--orange-accent);
+    }
+    
+    /* Forms Extra Small */
+    .form-container {
+        padding: 20px;
+    }
+    
+    input, select, textarea {
+        padding: 10px;
+        font-size: 14px;
+    }
+    
+    /* Modal Extra Small */
+    .modal-content {
+        padding: 25px 15px;
+        border-radius: 16px;
+    }
+    
+    .modal-close {
+        top: 12px;
+        right: 12px;
+        font-size: 1.3rem;
+    }
+    
+    /* Settings Dropdown Extra Small */
+    .settings-dropdown {
+        max-height: 85vh;
+    }
+    
+    .dropdown-user-avatar {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .profile-name {
+        font-size: 0.9rem;
+    }
+    
+    .profile-email {
+        font-size: 0.65rem;
+    }
+    
+    /* Profile Image Upload Extra Small */
+    .profile-preview-wrapper {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .profile-preview-wrapper i {
+        font-size: 2rem;
+    }
+    
+    /* Instruction List Extra Small */
+    .instruction-list li {
+        padding-left: 25px;
+        margin-bottom: 12px;
+        font-size: 0.85rem;
+    }
+    
+    /* Heatmap Extra Small */
+    .heatmap-day {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .streak-card {
+        padding: 20px;
+    }
+    
+    .streak-count {
+        font-size: 2.5rem;
+    }
+}
+
+/* Hero Buttons Fix */
+.hero-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Remove inline margin issue */
+.hero-btns .btn-outline {
+  margin-left: 0 !important;
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+  .hero-btns {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-btns a {
+    width: 80%;
+    text-align: center;
+  }
+
+  .hero-btns .btn-primary {
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .hero-btns .btn-outline {
+    padding: 12px;
+    font-size: 15px;
+  }
+}
