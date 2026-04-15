@@ -44,37 +44,56 @@ const checkAuth = () => {
                         ${avatarImg}
                     </div>
                     <div class="settings-dropdown" id="settingsDropdown">
-                        <div class="dropdown-header">
-                            <img src="${savedImg || 'https://via.placeholder.com/60'}" alt="User">
-                            <h4>${userName}</h4>
-                            <p>${userEmail}</p>
+                        <!-- Profile Header with Edit Button -->
+                        <div class="dropdown-profile-header">
+                            <div class="profile-info-wrapper">
+                                <img src="${savedImg || 'https://via.placeholder.com/60'}" alt="User" class="dropdown-user-avatar">
+                                <div class="profile-text">
+                                    <h4 class="profile-name">${userName}</h4>
+                                    <p class="profile-email">${userEmail}</p>
+                                </div>
+                            </div>
+                            <button class="edit-profile-btn" onclick="window.location.href='profile.html'" title="Edit Profile">
+                                <i class="fas fa-edit"></i>
+                            </button>
                         </div>
                         
-                        <div class="lang-selector">
-                            <span data-i18n="language">Language</span>
-                            <div class="selector-group">
-                                <span class="selector-item ${currentLang === 'en' ? 'active' : ''}" onclick="applyLanguage('en')">EN</span>
-                                <span class="selector-item ${currentLang === 'hi' ? 'active' : ''}" onclick="applyLanguage('hi')">HI</span>
-                                <span class="selector-item ${currentLang === 'mr' ? 'active' : ''}" onclick="applyLanguage('mr')">MR</span>
+                        <!-- Divider -->
+                        <div class="dropdown-divider"></div>
+                        
+                        <!-- Language Section -->
+                        <div class="dropdown-section">
+                            <span class="section-label" data-i18n="language">Language</span>
+                            <div class="language-selector">
+                                <button class="lang-btn ${currentLang === 'en' ? 'active' : ''}" onclick="applyLanguage('en')">EN</button>
+                                <button class="lang-btn ${currentLang === 'hi' ? 'active' : ''}" onclick="applyLanguage('hi')">HI</button>
+                                <button class="lang-btn ${currentLang === 'mr' ? 'active' : ''}" onclick="applyLanguage('mr')">MR</button>
                             </div>
                         </div>
-
-                        <div class="mode-selector">
-                            <span data-i18n="mode">Mode</span>
-                            <div class="selector-group">
-                                <span class="selector-item ${currentTheme === 'light' ? 'active' : ''}" onclick="applyTheme('light')">Light</span>
-                                <span class="selector-item ${currentTheme === 'dark' ? 'active' : ''}" onclick="applyTheme('dark')">Dark</span>
+                        
+                        <!-- Divider -->
+                        <div class="dropdown-divider"></div>
+                        
+                        <!-- Mode Section -->
+                        <div class="dropdown-section">
+                            <span class="section-label" data-i18n="mode">Mode</span>
+                            <div class="mode-toggle">
+                                <button class="toggle-btn ${currentTheme === 'light' ? 'active' : ''}" onclick="applyTheme('light')">
+                                    <i class="fas fa-sun"></i> Light
+                                </button>
+                                <button class="toggle-btn ${currentTheme === 'dark' ? 'active' : ''}" onclick="applyTheme('dark')">
+                                    <i class="fas fa-moon"></i> Dark
+                                </button>
                             </div>
                         </div>
-
-                        <a href="profile.html" class="dropdown-option">
-                            <span><i class="fas fa-user"></i> <span data-i18n="profile_title">Profile</span></span>
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
-
-                        <div class="dropdown-option" onclick="logout()" style="color: var(--brown);">
-                            <span><i class="fas fa-sign-out-alt"></i> <span data-i18n="logout">Logout</span></span>
-                        </div>
+                        
+                        <!-- Divider -->
+                        <div class="dropdown-divider"></div>
+                        
+                        <!-- Logout Button -->
+                        <button class="logout-btn" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> <span data-i18n="logout">Logout</span>
+                        </button>
                     </div>
                 </li>
             `;
@@ -85,16 +104,23 @@ const checkAuth = () => {
             // Dropdown Toggle Logic
             const trigger = document.getElementById('settingsTrigger');
             const dropdown = document.getElementById('settingsDropdown');
-            if (trigger) {
+            if (trigger && dropdown) {
                 trigger.addEventListener('click', (e) => {
                     e.stopPropagation();
                     dropdown.classList.toggle('active');
                 });
+                
+                // Prevent closing dropdown when clicking inside it
+                dropdown.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
             }
 
             // Close on outside click
-            window.addEventListener('click', () => {
-                if (dropdown) dropdown.classList.remove('active');
+            document.addEventListener('click', () => {
+                if (dropdown && dropdown.classList.contains('active')) {
+                    dropdown.classList.remove('active');
+                }
             });
         }
     }

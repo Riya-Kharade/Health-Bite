@@ -30,8 +30,8 @@
     <section style="padding-top: 140px;">
         <div class="container">
             <div class="section-title text-center reveal">
-                <h2 style="font-size: 3.5rem;">Configure Your Journey</h2>
-                <p>Personalization is the secret to consistency. Define your health parameters.</p>
+                <h2 style="font-size: 3.5rem;" data-i18n="configureJourney">Configure Your Journey</h2>
+                <p data-i18n="profileSubtitle">Personalization is the secret to consistency. Define your health parameters.</p>
             </div>
 
             <div class="form-container reveal" style="max-width: 800px; margin: 0 auto;">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="upload-btn-wrapper">
                         <button class="btn btn-outline" style="border-radius: 8px; padding: 10px 20px; font-size: 0.85rem; border-color: var(--dark-green); color: var(--dark-green);">
-                            <i class="fas fa-camera"></i> Change Photo
+                            <i class="fas fa-camera"></i> <span data-i18n="changePhoto">Change Photo</span>
                         </button>
                         <input type="file" id="imageUpload" accept="image/*">
                     </div>
@@ -52,41 +52,41 @@
                 <form id="profileForm">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
                         <div class="form-group" style="grid-column: span 2;">
-                            <label for="userName" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);">Full Name</label>
+                            <label for="userName" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);" data-i18n="fullName">Full Name</label>
                             <input type="text" id="userName" placeholder="John Doe" required>
                         </div>
                         <div class="form-group">
-                            <label for="userAge" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);">Age</label>
+                            <label for="userAge" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);" data-i18n="age">Age</label>
                             <input type="number" id="userAge" placeholder="25" required>
                         </div>
                         <div class="form-group">
-                            <label for="userWeight" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);">Weight (KG)</label>
+                            <label for="userWeight" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);" data-i18n="weight">Weight (KG)</label>
                             <input type="number" id="userWeight" placeholder="70" required>
                         </div>
                         <div class="form-group" style="grid-column: span 2;">
-                            <label for="userGoal" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);">What's your primary goal?</label>
+                            <label for="userGoal" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);" data-i18n="primaryGoal">What's your primary goal?</label>
                             <select id="userGoal" required>
-                                <option value="weight-loss">I want to lose weight</option>
-                                <option value="muscle-gain">I want to gain muscle</option>
-                                <option value="maintain">I want to stay fit</option>
+                                <option value="weight-loss" data-i18n="weightLoss">I want to lose weight</option>
+                                <option value="muscle-gain" data-i18n="muscleGain">I want to gain muscle</option>
+                                <option value="maintain" data-i18n="maintain">I want to stay fit</option>
                             </select>
                         </div>
                         <div class="form-group" style="grid-column: span 2;">
-                            <label for="userPreference" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);">Dietary Preference</label>
+                            <label for="userPreference" style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--deep-green);" data-i18n="dietaryPref">Dietary Preference</label>
                             <select id="userPreference" required>
-                                <option value="veg">Vegetarian (Earth focused)</option>
-                                <option value="non-veg">Non-Vegetarian (Balanced)</option>
+                                <option value="veg" data-i18n="vegetarian">Vegetarian (Earth focused)</option>
+                                <option value="non-veg" data-i18n="nonVegetarian">Non-Vegetarian (Balanced)</option>
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-20" style="width: 100%; font-size: 1.1rem; padding: 20px;">Save My Profile</button>
+                    <button type="submit" class="btn btn-primary mt-20" style="width: 100%; font-size: 1.1rem; padding: 20px;" data-i18n="saveProfile">Save My Profile</button>
                 </form>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="container text-center"><p>&copy; 2024 HealthBite. All rights reserved.</p></div>
+        <div class="container text-center"><p data-i18n="copyright">&copy; 2024 HealthBite. Designed for Excellence.</p></div>
     </footer>
 
     <script src="js/translations.js"></script>

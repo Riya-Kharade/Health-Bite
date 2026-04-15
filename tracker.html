@@ -64,25 +64,25 @@
     <section style="padding-top: 140px;">
         <div class="container">
             <div class="section-title text-center reveal">
-                <h2 style="font-size: 3.5rem;">Daily Intake Tracker</h2>
-                <p>Knowledge is power. Log your intake and watch your progress unfold.</p>
+                <h2 style="font-size: 3.5rem;" data-i18n="dailyIntakeTracker">Daily Intake Tracker</h2>
+                <p data-i18n="trackerSubtitle">Knowledge is power. Log your intake and watch your progress unfold.</p>
             </div>
 
             <div class="tracker-container">
                 <!-- Add Form -->
                 <div class="reveal">
                     <div class="form-container" style="position: sticky; top: 120px;">
-                        <h3 style="margin-bottom: 25px;">Log New Meal</h3>
+                        <h3 style="margin-bottom: 25px;" data-i18n="logNewMeal">Log New Meal</h3>
                         <form id="foodForm">
                             <div class="form-group mb-40" style="margin-bottom: 20px;">
-                                <label style="display: block; margin-bottom: 8px; font-weight: 700;">Food Name</label>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 700;" data-i18n="foodName">Food Name</label>
                                 <input type="text" id="foodName" placeholder="e.g. Scrambled Eggs" required>
                             </div>
                             <div class="form-group mb-40" style="margin-bottom: 30px;">
-                                <label style="display: block; margin-bottom: 8px; font-weight: 700;">Estimate Calories</label>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 700;" data-i18n="estimateCalories">Estimate Calories</label>
                                 <input type="number" id="calories" placeholder="e.g. 250" required>
                             </div>
-                            <button type="submit" class="btn btn-primary" style="width: 100%;">Add to My Log</button>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;" data-i18n="addToLog">Add to My Log</button>
                         </form>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                 <div class="reveal">
                     <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; background: var(--deep-green); padding: 30px; border-radius: var(--radius); color: var(--white);">
                         <div>
-                            <p style="opacity: 0.7; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;" data-i18n="total_cals">Today's Total</p>
+                            <p style="opacity: 0.7; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;" data-i18n="todayTotal">Today's Total</p>
                             <h2 style="color: var(--primary-green); font-size: 3rem; margin: 0;"><span id="totalCals">0</span> <small style="font-size: 1rem; opacity: 0.5;">KCAL</small></h2>
                         </div>
                         <i class="fas fa-chart-bar" style="font-size: 3rem; opacity: 0.2;"></i>
@@ -106,44 +106,44 @@
             <!-- New Analytics Section -->
             <div class="analytics-section reveal">
                 <div class="section-title">
-                    <h2 style="font-size: 2.5rem;">Your Progress</h2>
-                    <p id="motivationalMsg">Consistency is the bridge between goals and accomplishment.</p>
+                    <h2 style="font-size: 2.5rem;" data-i18n="yourProgress">Your Progress</h2>
+                    <p id="motivationalMsg" data-i18n="motivational">Consistency is the bridge between goals and accomplishment.</p>
                 </div>
 
                 <div class="analytics-grid">
                     <!-- Streak Card -->
                     <div class="streak-card">
                         <i class="fas fa-fire" style="font-size: 2rem;"></i>
-                        <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-top: 10px;">Current Streak</p>
+                        <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-top: 10px;" data-i18n="currentStreak">Current Streak</p>
                         <div class="streak-count" id="currentStreak">0 Days</div>
-                        <p style="opacity: 0.7;">Best Streak: <span id="bestStreak">0</span> Days</p>
+                        <p style="opacity: 0.7;"><span data-i18n="bestStreak">Best Streak:</span> <span id="bestStreak">0</span> Days</p>
                         
                         <div class="summary-stats">
                             <div>
                                 <h4 id="weeklyAvg">0</h4>
-                                <p style="font-size: 0.7rem; opacity: 0.6;">Weekly Avg</p>
+                                <p style="font-size: 0.7rem; opacity: 0.6;" data-i18n="weeklyAvg">Weekly Avg</p>
                             </div>
                             <div>
                                 <h4 id="activeDays">0</h4>
-                                <p style="font-size: 0.7rem; opacity: 0.6;">Active Days</p>
+                                <p style="font-size: 0.7rem; opacity: 0.6;" data-i18n="activeDays">Active Days</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Heatmap Card -->
                     <div class="heatmap-card">
-                        <h3 style="margin-bottom: 5px;">Activity Heatmap</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Daily calorie logging frequency</p>
+                        <h3 style="margin-bottom: 5px;" data-i18n="activityHeatmap">Activity Heatmap</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;" data-i18n="dailyCalorieFreq">Daily calorie logging frequency</p>
                         <div class="heatmap-container" id="heatmapGrid">
                             <!-- Days generated by JS -->
                         </div>
                         <div style="display: flex; align-items: center; gap: 10px; margin-top: 20px; font-size: 0.75rem;">
-                            <span>Less</span>
+                            <span data-i18n="less">Less</span>
                             <div class="heatmap-day"></div>
                             <div class="heatmap-day low"></div>
                             <div class="heatmap-day medium"></div>
                             <div class="heatmap-day high"></div>
-                            <span>More</span>
+                            <span data-i18n="more">More</span>
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
     </section>
 
     <footer style="margin-top: 60px;">
-        <div class="container text-center"><p>&copy; 2024 HealthBite. All rights reserved.</p></div>
+        <div class="container text-center"><p data-i18n="copyright">&copy; 2024 HealthBite. Designed for Excellence.</p></div>
     </footer>
 
     <script src="js/translations.js"></script>
@@ -160,6 +160,9 @@
     <script>
         let dailyLog = JSON.parse(localStorage.getItem('hb_daily_log')) || [];
         let heatmapData = JSON.parse(localStorage.getItem('hb_heatmap_data')) || {};
+        const currentLang = localStorage.getItem('language') || 'en';
+        const translations = window.HealthBiteTranslations || {};
+        const langData = translations[currentLang] || translations['en'] || {};
 
         const render = () => {
             const list = document.getElementById('logList');
@@ -168,7 +171,7 @@
             let total = 0;
 
             if (dailyLog.length === 0) {
-                list.innerHTML = '<div class="card text-center" style="padding: 60px; border: 2px dashed #ccc; background: transparent; box-shadow: none;"><h3>Your plate is empty!</h3><p>Log your first meal to start tracking.</p></div>';
+                list.innerHTML = `<div class="card text-center" style="padding: 60px; border: 2px dashed #ccc; background: transparent; box-shadow: none;"><h3 data-i18n="plateEmpty">${langData.plateEmpty || 'Your plate is empty!'}</h3><p data-i18n="logFirstMeal">${langData.logFirstMeal || 'Log your first meal to start tracking.'}</p></div>`;
             }
 
             dailyLog.forEach((item, index) => {
@@ -181,7 +184,7 @@
                             <p style="font-size: 0.85rem; color: var(--text-muted);">${item.time}</p>
                         </div>
                         <div style="text-align: right;">
-                            <p style="font-weight: 800; color: var(--dark-green); font-size: 1.2rem;">${item.cal} <small>KCAL</small></p>
+                            <p style="font-weight: 800; color: var(--dark-green); font-size: 1.2rem;">${item.cal} <small data-i18n="kcal">${langData.kcal || 'kcal'}</small></p>
                             <button onclick="deleteItem(${index})" style="background: none; border: none; color: var(--brown); cursor: pointer; font-size: 0.8rem;"><i class="fas fa-trash"></i> Delete</button>
                         </div>
                     </div>
@@ -255,8 +258,13 @@
             document.getElementById('activeDays').textContent = activeDaysCount;
 
             const msg = document.getElementById('motivationalMsg');
-            if (currentStreak >= 5) msg.textContent = "You're on fire! 🔥 Keep that momentum going!";
-            else if (currentStreak > 0) msg.textContent = "Great start! Every meal logged is a step toward your goal.";
+            const currentLang = localStorage.getItem('language') || 'en';
+            const translations = window.HealthBiteTranslations || {};
+            const langData = translations[currentLang] || translations['en'] || {};
+            
+            if (currentStreak >= 5) msg.textContent = langData.streakFire || "You're on fire! 🔥 Keep that momentum going!";
+            else if (currentStreak > 0) msg.textContent = langData.streakStart || "Great start! Every meal logged is a step toward your goal.";
+            else msg.textContent = langData.motivational || "Consistency is the bridge between goals and accomplishment.";
         };
 
         document.getElementById('foodForm').onsubmit = (e) => {

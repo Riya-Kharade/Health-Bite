@@ -4,90 +4,107 @@
  */
 
 const HealthBite = {
-    // --- 1. THEME ENGINE ---
-    setTheme: (theme) => {
-        document.documentElement.setAttribute('data-theme', theme);
-        document.body.classList.toggle('dark-mode', theme === 'dark');
-        localStorage.setItem('theme', theme);
-        
-        // Sync selectors if present
-        document.querySelectorAll('.mode-selector .selector-item').forEach(item => {
-            const isMatch = item.innerText.toLowerCase().includes(theme);
-            item.classList.toggle('active', isMatch);
-        });
-    },
+  // --- 1. THEME ENGINE ---
+  setTheme: (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.body.classList.toggle('dark-mode', theme === 'dark');
+    localStorage.setItem('theme', theme);
 
-    // --- 2. LANGUAGE ENGINE ---
-    setLanguage: (lang) => {
-        if (!window.HealthBiteTranslations) return;
-        
-        const langData = window.HealthBiteTranslations[lang];
-        if (!langData) return;
+    // Sync theme selector buttons (old style)
+    document.querySelectorAll('.mode-selector .selector-item').forEach(item => {
+      const isMatch = item.innerText.toLowerCase().includes(theme);
+      item.classList.toggle('active', isMatch);
+    });
+    
+    // Sync theme selector buttons (new style)
+    document.querySelectorAll('.mode-toggle .toggle-btn').forEach(item => {
+      const themeName = item.innerText.toLowerCase().trim();
+      const isMatch = (theme === 'light' && themeName.includes('light')) || 
+                      (theme === 'dark' && themeName.includes('dark'));
+      item.classList.toggle('active', isMatch);
+    });
+  },
 
-        localStorage.setItem('language', lang);
+  // --- 2. LANGUAGE ENGINE ---
+  setLanguage: (lang) => {
+    if (!window.HealthBiteTranslations) return;
 
-        // Targeted translations using data-i18n or data-lang
-        document.querySelectorAll('[data-i18n], [data-lang]').forEach(el => {
-            const key = el.getAttribute('data-i18n') || el.getAttribute('data-lang');
-            if (langData[key]) {
-                el.innerText = langData[key];
-            }
-        });
+    // Normalize language code to lowercase
+    const normalizedLang = lang.toLowerCase();
+    const langData = window.HealthBiteTranslations[normalizedLang];
+    if (!langData) return;
 
-        // Sync selectors if present
-        document.querySelectorAll('.lang-selector .selector-item').forEach(item => {
-            item.classList.toggle('active', item.innerText.toLowerCase() === lang);
-        });
+    localStorage.setItem('language', normalizedLang);
 
-        // Specific page updates (like Dashboard hello)
-        const welcomeEl = document.getElementById('userNameDisplay');
-        if (welcomeEl) {
-            const userName = localStorage.getItem('userName') || 'User';
-            const welcomePrefix = langData.hi || (lang === 'en' ? 'Hi' : 'Hello');
-            welcomeEl.textContent = `${welcomePrefix}, ${userName.split(' ')[0]}!`;
-        }
-    },
+    // Apply translations to elements with data-i18n ONLY (NOT data-lang buttons)
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (langData[key]) {
+        el.textContent = langData[key];
+      }
+    });
 
-    // --- 3. INITIALIZATION ---
-    init: () => {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        const savedLang = localStorage.getItem('language') || 'en';
+    // Sync language selector buttons - highlight active language
+    document.querySelectorAll('.language-selector .lang-btn').forEach(btn => {
+      const btnText = btn.innerText.trim().toLowerCase(); // "en", "hi", "mr"
+      const isActive = btnText === normalizedLang.substring(0, 2); // Compare with normalized lang code
+      btn.classList.toggle('active', isActive);
+    });
 
-        HealthBite.setTheme(savedTheme);
-        HealthBite.setLanguage(savedLang);
-
-        // Global scroll effects
-        const nav = document.querySelector('nav');
-        if (nav) {
-            window.addEventListener('scroll', () => {
-                nav.classList.toggle('scrolled', window.scrollY > 50);
-            });
-        }
-
-        // --- 4. REVEAL ANIMATIONS ---
-        const reveal = () => {
-            const reveals = document.querySelectorAll('.reveal');
-            const windowHeight = window.innerHeight;
-            reveals.forEach(el => {
-                const revealTop = el.getBoundingClientRect().top;
-                if (revealTop < windowHeight - 150) {
-                    el.classList.add('active');
-                }
-            });
-        };
-        window.addEventListener('scroll', reveal);
-        reveal(); // Run once
-
-        // --- 5. MOBILE MENU ---
-        const menuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        if (menuBtn) {
-            menuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                menuBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-            });
-        }
+    // Update user welcome message if present
+    const welcomeEl = document.getElementById('userNameDisplay');
+    if (welcomeEl) {
+      const userName = localStorage.getItem('userName') || 'User';
+      const greetings = {
+        en: 'Hi',
+        hi: 'नमस्ते',
+        mr: 'नमस्कार'
+      };
+      const greeting = greetings[normalizedLang] || 'Hi';
+      welcomeEl.textContent = `${greeting}, ${userName.split(' ')[0]}!`;
     }
+  },
+
+  // --- 3. INITIALIZATION ---
+  init: () => {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedLang = localStorage.getItem('language') || 'en';
+
+    HealthBite.setTheme(savedTheme);
+    HealthBite.setLanguage(savedLang);
+
+    // Global scroll effects
+    const nav = document.querySelector('nav');
+    if (nav) {
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      });
+    }
+
+    // --- 4. REVEAL ANIMATIONS ---
+    const reveal = () => {
+      const reveals = document.querySelectorAll('.reveal');
+      const windowHeight = window.innerHeight;
+      reveals.forEach(el => {
+        const revealTop = el.getBoundingClientRect().top;
+        if (revealTop < windowHeight - 150) {
+          el.classList.add('active');
+        }
+      });
+    };
+    window.addEventListener('scroll', reveal);
+    reveal(); // Run once
+
+    // --- 5. MOBILE MENU ---
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    if (menuBtn) {
+      menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+      });
+    }
+  }
 };
 
 // Expose to window for inline onclicks
